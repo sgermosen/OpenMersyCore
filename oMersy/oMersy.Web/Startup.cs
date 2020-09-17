@@ -23,6 +23,7 @@ namespace oMersy.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //here is the real thing than make a console application, a web application.
             services.AddControllersWithViews();
         }
 
@@ -40,14 +41,17 @@ namespace oMersy.Web
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseStaticFiles(); //it indicate than we want to support files like .html (razor views become on this)
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthorization(); //it indicates to use identity autorization, or autorization based on identity
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                  name: "default",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
